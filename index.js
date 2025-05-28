@@ -12,7 +12,7 @@ const crypto = require("crypto");
 const cookieParser = require("cookie-parser");
 const JwtStrategy = require("passport-jwt").Strategy;
 const { Order } = require("./model/Order");
-const path=require("path")
+const path = require("path");
 
 // Importing route files for different entities
 const productRouter = require("./routes/Product");
@@ -68,7 +68,7 @@ server.post("/webhook", express.raw({ type: "application/json" }), async (reques
 });
 
 // Middleware to parse JSON in incoming request bodies
-server.use(express.static(path.resolve(__dirname,"build")));
+server.use(express.static(path.resolve(__dirname, "build")));
 server.use(express.json());
 server.use(
   session({
@@ -96,6 +96,7 @@ server.use("/users", isAuth(), userRouter.router); // Routes for user-related op
 server.use("/auth", authRouter.router); // Routes for auth-related operations
 server.use("/cart", isAuth(), cartRouter.router); // Routes for cart-related operations
 server.use("/orders", isAuth(), orderRouter.router); // Routes for order-related operations
+server.get("*", (req, res) => res.sendFile(path.resolve("build", "index.html")));
 
 passport.use(
   "local",
@@ -176,7 +177,6 @@ server.post("/create-payment-intent", async (req, res) => {
 main().catch((error) => {
   console.log(error);
 });
-
 
 // Start the server and listen on port 8080
 server.listen(process.env.PORT, () => {
