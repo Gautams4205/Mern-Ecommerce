@@ -50,6 +50,7 @@ server.post("/webhook", express.raw({ type: "application/json" }), async (reques
     response.status(400).send(`Webhook Error: ${err.message}`);
     return;
   }
+  console.log(event.type)
   switch (event.type) {
     case "payment_intent.succeeded":
       const paymentIntentSucceeded = event.data.object;
