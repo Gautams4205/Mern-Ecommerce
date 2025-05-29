@@ -56,8 +56,8 @@ server.post("/webhook", express.raw({ type: "application/json" }), async (reques
       const paymentIntentSucceeded = event.data.object;
       let order = await Order.findById(paymentIntentSucceeded.metadata.orderId);
       console.log(order);
-      // order.PaymentStatus = "received";
-      // await order.save();
+      order.PaymentStatus = "received";
+      await order.save();
 
       break;
     // ... handle other event types
@@ -66,7 +66,7 @@ server.post("/webhook", express.raw({ type: "application/json" }), async (reques
   }
 
   // Return a 200 response to acknowledge receipt of the event
-  response.send(200);
+  response.sendStatus(200);
 });
 
 // Middleware to parse JSON in incoming request bodies
