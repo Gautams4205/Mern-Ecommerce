@@ -10,6 +10,7 @@ const orderSchema = new Schema({
   subtotal: { type: Number },
   user: { type: Schema.Types.ObjectId, ref: "User", required: true },
   PaymentMethod: { type: String, required: true },
+  PaymentStatus: { type: String, default: "pending" },
   SelectedAddress: { type: Schema.Types.Mixed, required: true },
   status: { type: String, default: "pending" },
 });
