@@ -46,7 +46,7 @@ server.post("/webhook", express.raw({ type: "application/json" }), async (reques
 
   try {
     event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
-    console.log(event)
+    console.log(event);
   } catch (err) {
     response.status(400).send(`Webhook Error: ${err.message}`);
     return;
@@ -55,8 +55,9 @@ server.post("/webhook", express.raw({ type: "application/json" }), async (reques
     case "payment_intent.succeeded":
       const paymentIntentSucceeded = event.data.object;
       let order = await Order.findById(paymentIntentSucceeded.metadata.orderId);
-      order.PaymentStatus = "received";
-      await order.save();
+      console.log(order);
+      // order.PaymentStatus = "received";
+      // await order.save();
 
       break;
     // ... handle other event types
@@ -65,7 +66,7 @@ server.post("/webhook", express.raw({ type: "application/json" }), async (reques
   }
 
   // Return a 200 response to acknowledge receipt of the event
-  response.send();
+  response.send(200);
 });
 
 // Middleware to parse JSON in incoming request bodies
