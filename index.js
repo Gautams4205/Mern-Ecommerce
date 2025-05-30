@@ -46,7 +46,6 @@ server.post("/webhook", express.raw({ type: "application/json" }), async (reques
 
   try {
     event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
-    console.log(event);
   } catch (err) {
     response.status(400).send(`Webhook Error: ${err.message}`);
     return;
@@ -54,8 +53,7 @@ server.post("/webhook", express.raw({ type: "application/json" }), async (reques
   switch (event.type) {
     case "payment_intent.succeeded":
       const paymentIntentSucceeded = event.data.object;
-      let order = await Order.findById(paymentIntentSucceeded.metadata.orderId);
-      console.log(order);
+      let order = await Order.findById(paymentIntentSucceeded.metadata.orderId);  
       order.PaymentStatus = "received";
       await order.save();
 
