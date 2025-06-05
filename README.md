@@ -70,4 +70,4 @@ STRIPE_PUBLIC_KEY=your_stripe_public_key
 npm run dev
 ```
 
-Now this project is running on the environment-defined port. Stripe payments may not work properly in local development; please check the [live deployed link]([#](https://mern-ecommerce-one-olive.vercel.app/)) for full payment functionality.
+Now this project is running on the environment-defined port. Stripe payments may not work properly in local development; please check the [live deployed link](https://mern-ecommerce-one-olive.vercel.app/) for full payment functionality.
